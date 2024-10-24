@@ -12,7 +12,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery") // order 엔티티의 delivery 필드에 종속
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY) // order 엔티티의 delivery 필드에 종속
     private Order order; // 어떤 주문에 대한 배송 정보인지
 
     @Embedded // 값 타입 -> 해당 클래스 필드들이 그냥 테이블 컬럼으로 들어감

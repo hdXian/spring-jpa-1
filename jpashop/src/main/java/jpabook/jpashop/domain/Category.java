@@ -24,7 +24,7 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "item_id") )
     private List<Item> items = new ArrayList<>(); // 이 카테고리에 속하는 상품이 뭐가 있는지
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id") // 셀프 조인 개념 (이 Category에서 정한 parent_id FK값에 따라 상대 Category의 child 값이 영향받음)
     private Category parent; // 이 카테고리의 상위 카테고리 (하나)
 

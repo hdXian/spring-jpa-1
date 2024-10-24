@@ -17,14 +17,14 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id") // member_id 컬럼 기준으로 member, order 테이블 조인
     private Member member; // FK member_id
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id") // delivery_id 컬럼 기준으로 member, delivery 테이블 조인 (joinColumn을 박았다 -> 연관관계의 주인이다.)
     private Delivery delivery; // FK delivery_id
 
