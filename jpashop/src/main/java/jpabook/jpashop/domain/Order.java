@@ -33,4 +33,20 @@ public class Order {
     @Enumerated(EnumType.STRING) // enum 전략 -> 문자열로 할 것. 기본이 ordinal인데, 숫자 밀리면 문제 생김
     private OrderStatus orderStatus; // ENUM [ORDER, CANCEL] (주문, 취소)
 
+    // 연관관계 메서드 (양방향 연관관계에 있는 엔티티들에 대한 업데이트를 한번에 수행하도록 하는 편의 메서드)
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItems(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
 }

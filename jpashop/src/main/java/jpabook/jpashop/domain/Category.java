@@ -31,4 +31,10 @@ public class Category {
     @OneToMany(mappedBy = "parent") // 셀프 조인 개념 (다른 Category들의 parent 값에 따라 구성됨)
     private List<Category> child; // 이 카테고리의 하위 카테고리 (여러개)
 
+    // 연관관계 메서드
+    public void addChildCategory(Category addChild) {
+        child.add(addChild);
+        addChild.setParent(this);
+    }
+
 }
