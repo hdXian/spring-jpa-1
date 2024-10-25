@@ -27,4 +27,27 @@ public class OrderItem {
 
     private int count;
 
+    // 생성 메서드 - 엔티티 생성에 대한 전체 로직을 처리
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+
+        return orderItem;
+    }
+
+    // 비즈니스 로직
+    // 주문 취소
+    public void cancel() {
+        this.getItem().addStock(this.count);
+    }
+
+    public int getTotalPrice() {
+        return this.getOrderPrice() * this.getCount();
+    }
+
 }

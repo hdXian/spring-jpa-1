@@ -39,7 +39,7 @@ public class Order {
         member.getOrders().add(this);
     }
 
-    public void addOrderItems(OrderItem orderItem) {
+    public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
@@ -47,6 +47,48 @@ public class Order {
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    // 생성 메서드 - Order 엔티티 생성에 대한 전체 로직 처리
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+
+        order.setMember(member);
+        order.setDelivery(delivery);
+
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        order.setOrderStatus(OrderStatus.ORDER); // 최초 주문 상태는 ORDER로 초기화
+        order.setOrderDate(LocalDateTime.now());
+
+        return order;
+    }
+
+    // 비즈니스 로직 (도메인 주도 설계)
+    public void cancel() { // 주문 취소
+        // 이미 배송 완료된 상품은 취소 불가 -> 예외 발생
+        if (delivery.getDeliveryStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("배송 완료된 상품은 취소가 불가능합니다.");
+        }
+
+        // 주문 상태를 취소로 바꾸고, 모든 주문 상품에 대한 재고를 원복.
+        this.orderStatus = OrderStatus.CANCEL;
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+
+    }
+
+    // 조회 로직
+    public int getTotalPrice() { // 전체 주문 가격 조회
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
     }
 
 }
