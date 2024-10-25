@@ -36,7 +36,7 @@ public class MemberService {
 
     // 회원 조회
     public Member findOne(Long id) {
-        return memberRepository.fineOne(id);
+        return memberRepository.findOne(id);
     }
 
     // 전체 회원 조회

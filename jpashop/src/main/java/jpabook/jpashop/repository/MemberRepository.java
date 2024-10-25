@@ -1,8 +1,6 @@
 package jpabook.jpashop.repository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceUnit;
 import jpabook.jpashop.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,7 +21,7 @@ public class MemberRepository {
     }
 
     // 회원 조회
-    public Member fineOne(Long id) {
+    public Member findOne(Long id) {
         return em.find(Member.class, id);
     }
 
