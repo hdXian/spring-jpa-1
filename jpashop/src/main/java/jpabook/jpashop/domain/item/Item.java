@@ -13,7 +13,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // 싱글 테이블 전략
 @DiscriminatorColumn(name = "dtype") // 싱글 테이블 전략을 쓸 경우 각 하위 클래스들을 구분할 컬럼 지정
 @Getter @Setter
-public abstract class Item {
+public class Item {
 
     @Id @GeneratedValue
     @Column(name = "item_id")
