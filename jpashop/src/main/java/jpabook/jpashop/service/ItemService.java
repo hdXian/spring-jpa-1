@@ -17,6 +17,7 @@ public class ItemService {
 
     // repo에 로직을 단순 위임함.
     // 상품 저장
+    @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
     }
