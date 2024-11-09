@@ -24,3 +24,6 @@ logging.level:
   # show binding parameter
   org.hibernate.orm.jdbc.bind: trace
 
+server:
+  error:
+    include-stacktrace: never
