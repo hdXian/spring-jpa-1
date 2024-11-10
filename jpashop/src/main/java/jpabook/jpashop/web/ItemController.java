@@ -70,15 +70,8 @@ public class ItemController {
     @PostMapping("/items/{itemId}/edit")
     public String edit(@ModelAttribute("form") BookForm form, Model model) {
 
-        Book book = (Book) itemService.findOne(form.getId());
+        itemService.updateItem(form.getId(), form);
 
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
-        itemService.saveItem(book);
         return "redirect:/items";
     }
 
